@@ -1,25 +1,26 @@
 // import styled from 'styled-components';
 // import Spinner from 'ui/Spinner';
-// import Table from 'ui/Table';
+import Table from "../../ui/Table";
 // import Menus from 'ui/Menus';
 // import Empty from 'ui/Empty';
 // import { useCabins } from 'features/cabins/useCabins';
 // import { useSearchParams } from 'react-router-dom';
 // import { Suspense } from 'react';
-import { useQuery } from '@tanstack/react-query';
-import styled from 'styled-components';
-import { getCabins } from '../../services/apiCabins';
-import Spinner from '../../ui/Spinner';
-import CabinRow from './CabinRow';
-import { useCabins } from './useCabins';
+import { useQuery } from "@tanstack/react-query";
+import styled from "styled-components";
+import { getCabins } from "../../services/apiCabins";
+import Spinner from "../../ui/Spinner";
+import CabinRow from "./CabinRow";
+import { useCabins } from "./useCabins";
+import Menus from "../../ui/Menus";
 
 // v1
-const Table = styled.div`
-  border: 1px solid var(--color-grey-200);
-  font-size:1.4rem;
-  border-radius: 7px;
-  overflow: hidden;
-`;
+// const Table = styled.div`
+//   border: 1px solid var(--color-grey-200);
+//   font-size:1.4rem;
+//   border-radius: 7px;
+//   overflow: hidden;
+// `;
 
 const TableHeader = styled.header`
   display: grid;
@@ -37,24 +38,30 @@ const TableHeader = styled.header`
 `;
 
 function CabinTable() {
-  const {isLoading, cabins, error} = useCabins()  
+  const { isLoading, cabins, error } = useCabins();
 
-  if (isLoading) return <Spinner />
+  if (isLoading) return <Spinner />;
 
   return (
-    <Table role="table">
-      <TableHeader role="row">
-        <div></div>
-        <div>Cabin</div>
-        <div>Capacity</div>
-        <div>Price</div>
-        <div>Discount</div>
-        <div></div>
-      </TableHeader>
-      {cabins?.map((cabin) => (
+    <Menus>
+      <Table columns="0.6fr 1.8fr 2.2fr 1fr 1fr 1fr">
+        <Table.Header>
+          <div></div>
+          <div>Cabin</div>
+          <div>Capacity</div>
+          <div>Price</div>
+          <div>Discount</div>
+          <div></div>
+        </Table.Header>
+        <Table.Body
+          data={cabins}
+          render={(cabin) => <CabinRow cabin={cabin} />}
+        />
+        {/* {cabins?.map((cabin) => (
         <CabinRow cabin={cabin} key={cabin.id} />
-      ))}
-    </Table>
+        ))} */}
+      </Table>
+    </Menus>
   );
 }
 
