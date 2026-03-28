@@ -14,6 +14,7 @@ import CabinRow from "./CabinRow";
 import { useCabins } from "./useCabins";
 import Menus from "../../ui/Menus";
 import { useSearchParams } from "react-router-dom";
+import Empty from "../../ui/Empty";
 
 // v1
 // const Table = styled.div`
@@ -60,11 +61,12 @@ function CabinTable() {
 
   const [field, direction] = sortBy.split("-");
   const modifier = direction === "asc" ? 1 : -1;
-  const sortedCabins = filteredCabins.sort((a,b)=>(
+  const sortedCabins = filteredCabins?.sort((a,b)=>(
     (a[field] - b[field]) * modifier
   ))
 
   if (isLoading) return <Spinner />;
+  if(!cabins.length) return <Empty resourceName="cabins" />
 
   return (
     <Menus>
