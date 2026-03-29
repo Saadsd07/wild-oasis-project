@@ -4,14 +4,15 @@ import { is } from "date-fns/locale";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
-export function useChecking() {
+export function useCheckin() {
     const clientQuery = useQueryClient();
     const navigate = useNavigate();
 
     const { mutate: checkin, isLoading: isCheckingIn } = useMutation({
-        mutationFn: (bookingId)=>updateBooking(bookingId, {
+        mutationFn: ({bookingId, breakfast})=>updateBooking(bookingId, {
             status: "checked-in",
-            isPaid: true
+            isPaid: true,
+            ...breakfast
         }),
 
         onSuccess:(data) =>{
