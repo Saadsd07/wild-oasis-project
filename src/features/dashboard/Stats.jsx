@@ -4,10 +4,12 @@ import {
   HiOutlineBanknotes,
   HiOutlineChartBar,
 } from 'react-icons/hi2';
-import { formatCurrency } from 'utils/helpers';
+import { formatCurrency } from '../../utils/helpers';
 import Stat from './Stat';
 
 function Stats({ bookings, confirmedStays, numDays, cabinCount }) {
+  console.log("cabin count", cabinCount);
+  console.log("nmDays", numDays);
   // Stat 1)
   const numBookings = bookings.length;
 
@@ -30,7 +32,7 @@ function Stats({ bookings, confirmedStays, numDays, cabinCount }) {
         title='Bookings'
         value={numBookings}
         color='blue'
-      />
+      />  
       <Stat
         icon={<HiOutlineBanknotes />}
         title='Sales'
